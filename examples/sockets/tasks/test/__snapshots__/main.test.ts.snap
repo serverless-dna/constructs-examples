@@ -1,0 +1,776 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot 1`] = `
+{
+  "Outputs": {
+    "tasksCallbackUrl5E3213ED": {
+      "Export": {
+        "Name": "dev-tasks-CallbackUrl",
+      },
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "tasksdevtaskssocketE146A084",
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/dev",
+          ],
+        ],
+      },
+    },
+    "tasksStageUrlD0C6C6A8": {
+      "Export": {
+        "Name": "dev-tasks-StageUrl",
+      },
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "wss://",
+            {
+              "Ref": "tasksdevtaskssocketE146A084",
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/dev",
+          ],
+        ],
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "handlerone1110D29D": {
+      "DependsOn": [
+        "handleroneServiceRoleDefaultPolicyDB6DC7F1",
+        "handleroneServiceRoleDF1C1DEF",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "cfdb775c1a35ac1620710dffce3d3d0dcb7cdf1ab3eb6df9de13ee6c04f3394a.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.taskHandlerFunc",
+        "Role": {
+          "Fn::GetAtt": [
+            "handleroneServiceRoleDF1C1DEF",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 3,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "handleroneEventInvokeConfigD4163212": {
+      "Properties": {
+        "DestinationConfig": {
+          "OnFailure": {
+            "Destination": {
+              "Fn::GetAtt": [
+                "tasksnotifyqueueFA0C1DFC",
+                "Arn",
+              ],
+            },
+          },
+          "OnSuccess": {
+            "Destination": {
+              "Fn::GetAtt": [
+                "tasksnotifyqueueFA0C1DFC",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "FunctionName": {
+          "Ref": "handlerone1110D29D",
+        },
+        "Qualifier": "$LATEST",
+      },
+      "Type": "AWS::Lambda::EventInvokeConfig",
+    },
+    "handleroneServiceRoleDF1C1DEF": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "handleroneServiceRoleDefaultPolicyDB6DC7F1": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:GetQueueUrl",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "tasksnotifyqueueFA0C1DFC",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "handleroneServiceRoleDefaultPolicyDB6DC7F1",
+        "Roles": [
+          {
+            "Ref": "handleroneServiceRoleDF1C1DEF",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "handlertwoAB0797C6": {
+      "DependsOn": [
+        "handlertwoServiceRoleDefaultPolicy761CA4FA",
+        "handlertwoServiceRoleC128D6E4",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "cfdb775c1a35ac1620710dffce3d3d0dcb7cdf1ab3eb6df9de13ee6c04f3394a.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.taskFailFunc",
+        "Role": {
+          "Fn::GetAtt": [
+            "handlertwoServiceRoleC128D6E4",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 3,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "handlertwoEventInvokeConfig2F741254": {
+      "Properties": {
+        "DestinationConfig": {
+          "OnFailure": {
+            "Destination": {
+              "Fn::GetAtt": [
+                "tasksnotifyqueueFA0C1DFC",
+                "Arn",
+              ],
+            },
+          },
+          "OnSuccess": {
+            "Destination": {
+              "Fn::GetAtt": [
+                "tasksnotifyqueueFA0C1DFC",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "FunctionName": {
+          "Ref": "handlertwoAB0797C6",
+        },
+        "Qualifier": "$LATEST",
+      },
+      "Type": "AWS::Lambda::EventInvokeConfig",
+    },
+    "handlertwoServiceRoleC128D6E4": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "handlertwoServiceRoleDefaultPolicy761CA4FA": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "sqs:SendMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:GetQueueUrl",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "tasksnotifyqueueFA0C1DFC",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "handlertwoServiceRoleDefaultPolicy761CA4FA",
+        "Roles": [
+          {
+            "Ref": "handlertwoServiceRoleC128D6E4",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "tasksdevtasks2B6BF2E0": {
+      "Properties": {
+        "ApiId": {
+          "Ref": "tasksdevtaskssocketE146A084",
+        },
+        "AutoDeploy": true,
+        "StageName": "dev",
+      },
+      "Type": "AWS::ApiGatewayV2::Stage",
+    },
+    "tasksdevtaskssocketE146A084": {
+      "Properties": {
+        "Name": "dev-tasks-socket",
+        "ProtocolType": "WEBSOCKET",
+        "RouteSelectionExpression": "$request.body.action",
+      },
+      "Type": "AWS::ApiGatewayV2::Api",
+    },
+    "tasksdevtaskssockettasksubmitRouteE005DF03": {
+      "Properties": {
+        "ApiId": {
+          "Ref": "tasksdevtaskssocketE146A084",
+        },
+        "AuthorizationType": "NONE",
+        "RouteKey": "task-submit",
+        "Target": {
+          "Fn::Join": [
+            "",
+            [
+              "integrations/",
+              {
+                "Ref": "tasksdevtaskssockettasksubmitRouteintegrationtasksubmit66605F01",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "tasksdevtaskssockettasksubmitRouteintegrationtasksubmit66605F01": {
+      "Properties": {
+        "ApiId": {
+          "Ref": "tasksdevtaskssocketE146A084",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":apigateway:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":lambda:path/2015-03-31/functions/",
+              {
+                "Fn::GetAtt": [
+                  "taskssubmit2CE045CE",
+                  "Arn",
+                ],
+              },
+              "/invocations",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "tasksdevtaskssockettasksubmitRouteintegrationtasksubmitPermissionF294C3C5": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "taskssubmit2CE045CE",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "tasksdevtaskssocketE146A084",
+              },
+              "/*/*task-submit",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "tasksdevtaskstasktype2rule7522C845": {
+      "Properties": {
+        "EventBusName": {
+          "Ref": "taskstaskbus5A04CE2C",
+        },
+        "EventPattern": {
+          "detail-type": [
+            "task-type-2",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "handlertwoAB0797C6",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "tasksdevtaskstasktype2ruleAllowEventRuletesthandlertwo0D022F8489B5C266": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "handlertwoAB0797C6",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "tasksdevtaskstasktype2rule7522C845",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "tasksdevtaskstasktyperule059B99AE": {
+      "Properties": {
+        "EventBusName": {
+          "Ref": "taskstaskbus5A04CE2C",
+        },
+        "EventPattern": {
+          "detail-type": [
+            "task-type",
+          ],
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "handlerone1110D29D",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "tasksdevtaskstasktyperuleAllowEventRuletesthandlerone615FE3F5FA6173FA": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "handlerone1110D29D",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "tasksdevtaskstasktyperule059B99AE",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "tasksnotify5521D106": {
+      "DependsOn": [
+        "tasksnotifyServiceRoleDefaultPolicyB98A05BB",
+        "tasksnotifyServiceRoleFC54C470",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "88b58a1831afd676302fc6d7eb883b5cb397293708e38119889ddf683ce7e140.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "WEBSOCKET_API": {
+              "Fn::Join": [
+                "",
+                [
+                  "https://",
+                  {
+                    "Ref": "tasksdevtaskssocketE146A084",
+                  },
+                  ".execute-api.",
+                  {
+                    "Ref": "AWS::Region",
+                  },
+                  ".",
+                  {
+                    "Ref": "AWS::URLSuffix",
+                  },
+                  "/dev",
+                ],
+              ],
+            },
+          },
+        },
+        "Handler": "index.taskNotifyHandler",
+        "Role": {
+          "Fn::GetAtt": [
+            "tasksnotifyServiceRoleFC54C470",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "tasksnotifyServiceRoleDefaultPolicyB98A05BB": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "execute-api:ManageConnections",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":",
+                    {
+                      "Ref": "tasksdevtaskssocketE146A084",
+                    },
+                    "/dev/*",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": [
+                "sqs:ReceiveMessage",
+                "sqs:ChangeMessageVisibility",
+                "sqs:GetQueueUrl",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "tasksnotifyqueueFA0C1DFC",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "tasksnotifyServiceRoleDefaultPolicyB98A05BB",
+        "Roles": [
+          {
+            "Ref": "tasksnotifyServiceRoleFC54C470",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "tasksnotifyServiceRoleFC54C470": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "tasksnotifyqueueFA0C1DFC": {
+      "DeletionPolicy": "Delete",
+      "Type": "AWS::SQS::Queue",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "tasksnotifysource19DE78FF": {
+      "Properties": {
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "tasksnotifyqueueFA0C1DFC",
+            "Arn",
+          ],
+        },
+        "FunctionName": {
+          "Ref": "tasksnotify5521D106",
+        },
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
+    "taskssubmit2CE045CE": {
+      "DependsOn": [
+        "taskssubmitServiceRoleDefaultPolicy5B9DEF3C",
+        "taskssubmitServiceRole486D5109",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "1489d0d2fad6753ee23918c0c9d59872e9f186a3a0736f3a5f4bb93e29192e39.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "TASK_BUS": {
+              "Ref": "taskstaskbus5A04CE2C",
+            },
+          },
+        },
+        "Handler": "index.taskSubmitHandler",
+        "Role": {
+          "Fn::GetAtt": [
+            "taskssubmitServiceRole486D5109",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "taskssubmitServiceRole486D5109": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "taskssubmitServiceRoleDefaultPolicy5B9DEF3C": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "events:PutEvents",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "taskstaskbus5A04CE2C",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "taskssubmitServiceRoleDefaultPolicy5B9DEF3C",
+        "Roles": [
+          {
+            "Ref": "taskssubmitServiceRole486D5109",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "taskstaskbus5A04CE2C": {
+      "Properties": {
+        "Name": "testtaskstaskbusB1C1F73E",
+      },
+      "Type": "AWS::Events::EventBus",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
