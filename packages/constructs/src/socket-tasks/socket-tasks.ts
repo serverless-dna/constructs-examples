@@ -100,6 +100,7 @@ export class SocketTasks extends SocketApi {
     new EventSourceMapping(this, 'notify-source', {
       target: notifyHandler,
       eventSourceArn: theQueue.queueArn,
+      reportBatchItemFailures: true,
     });
 
     theQueue.grantConsumeMessages(notifyHandler);

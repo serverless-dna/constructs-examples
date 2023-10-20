@@ -1,8 +1,8 @@
-import { UserIdentity } from "@aws/pdk/identity";
-import { StaticWebsite } from "@aws/pdk/static-website";
-import { Stack } from "aws-cdk-lib";
-import { GeoRestriction } from "aws-cdk-lib/aws-cloudfront";
-import { Construct } from "constructs";
+import { UserIdentity } from '@aws/pdk/identity';
+import { StaticWebsite } from '@aws/pdk/static-website';
+import { Stack } from 'aws-cdk-lib';
+import { GeoRestriction } from 'aws-cdk-lib/aws-cloudfront';
+import { Construct } from 'constructs';
 // import { ApiConstruct } from "./api";
 
 /**
@@ -28,7 +28,7 @@ export class WebsiteConstruct extends Construct {
     super(scope, id);
 
     new StaticWebsite(this, id, {
-      websiteContentPath: "false",
+      websiteContentPath: 'false',
       runtimeOptions: {
         jsonPayload: {
           region: Stack.of(this).region,
@@ -41,13 +41,13 @@ export class WebsiteConstruct extends Construct {
       },
       distributionProps: {
         geoRestriction: GeoRestriction.allowlist(
-          "AU",
-          "ID",
-          "IN",
-          "JP",
-          "KR",
-          "SG",
-          "US",
+          'AU',
+          'ID',
+          'IN',
+          'JP',
+          'KR',
+          'SG',
+          'US',
         ),
       },
     });

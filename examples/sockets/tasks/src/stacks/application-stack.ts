@@ -1,9 +1,9 @@
-import { SocketTasks } from "@serverless-dna/constructs";
-import { Duration, Stack, StackProps } from "aws-cdk-lib";
-import { Runtime } from "aws-cdk-lib/aws-lambda";
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import { Construct } from "constructs";
-import { IntegrationHandlers } from "./integrations";
+import { SocketTasks } from '@serverless-dna/constructs';
+import { Duration, Stack, StackProps } from 'aws-cdk-lib';
+import { Runtime } from 'aws-cdk-lib/aws-lambda';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import { Construct } from 'constructs';
+import { IntegrationHandlers } from './integrations';
 
 export class ApplicationStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -15,6 +15,7 @@ export class ApplicationStack extends Stack {
       runtime: Runtime.NODEJS_18_X,
       timeout: Duration.seconds(3),
     });
+
     const handlerTwo = new NodejsFunction(this, `handler-two`, {
       entry: `${__dirname}/integrations.ts`,
       handler: IntegrationHandlers.taskFail,
@@ -25,11 +26,11 @@ export class ApplicationStack extends Stack {
     new SocketTasks(this, `tasks`, {
       taskFunctions: [
         {
-          type: ["task-type"],
+          type: ['task-type'],
           func: handlerOne,
         },
         {
-          type: ["task-type-2"],
+          type: ['task-type-2'],
           func: handlerTwo,
         },
       ],

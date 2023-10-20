@@ -502,7 +502,7 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "88b58a1831afd676302fc6d7eb883b5cb397293708e38119889ddf683ce7e140.zip",
+          "S3Key": "2f2adbfad118e99d4892b1f84f609e45cf479b2cf18d852411d69e7c0e4f9dbd.zip",
         },
         "Environment": {
           "Variables": {
@@ -647,6 +647,9 @@ exports[`Snapshot 1`] = `
         "FunctionName": {
           "Ref": "tasksnotify5521D106",
         },
+        "FunctionResponseTypes": [
+          "ReportBatchItemFailures",
+        ],
       },
       "Type": "AWS::Lambda::EventSourceMapping",
     },
