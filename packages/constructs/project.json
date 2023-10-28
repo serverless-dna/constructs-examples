@@ -58,6 +58,27 @@
         "cwd": "packages/constructs"
       }
     },
+    "bump": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm exec projen bump",
+        "cwd": "packages/constructs"
+      }
+    },
+    "unbump": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm exec projen unbump",
+        "cwd": "packages/constructs"
+      }
+    },
+    "release": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm exec projen release",
+        "cwd": "packages/constructs"
+      }
+    },
     "post-upgrade": {
       "executor": "nx:run-commands",
       "options": {

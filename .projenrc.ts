@@ -42,25 +42,26 @@ const constructsLib = new awscdk.AwsCdkConstructLibrary({
   ],
   description:
     'A collection of useful CDK constructs of known, repeatable patterns that are easily consumable.',
+  release: true,
 });
 
 const sockApiExample = new InfrastructureTsProject({
-  defaultReleaseBranch: 'main',
   deps: [constructsLib.package.packageName],
   gitignore: ['cdk.context.json', '__snapshots__;'],
   name: 'SocketApiExample',
   outdir: 'examples/sockets/api',
   parent: project,
   packageManager: packageManager,
+  defaultReleaseBranch: 'main',
 });
+
+// override default Projen construct config for Prettier to make ALL projects the same
 const sockApiExampleEslint = sockApiExample.tryFindObjectFile('.eslintrc.json');
 sockApiExampleEslint?.addOverride('rules', {
   'prettier/prettier': ['error', { singleQuote: true }],
 });
 
-// add example/sockets
 const sockTaskExample = new InfrastructureTsProject({
-  defaultReleaseBranch: 'main',
   deps: [constructsLib.package.packageName],
   gitignore: ['cdk.context.json', '__snapshots__;'],
   name: 'SocketTasksExample',
@@ -68,6 +69,8 @@ const sockTaskExample = new InfrastructureTsProject({
   parent: project,
   packageManager: packageManager,
 });
+
+// override default Projen construct config for Prettier to make ALL projects the same
 const sockTaskExampleEslint =
   sockTaskExample.tryFindObjectFile('.eslintrc.json');
 sockTaskExampleEslint?.addOverride('rules', {
