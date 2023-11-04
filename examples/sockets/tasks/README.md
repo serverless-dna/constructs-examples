@@ -30,10 +30,12 @@ Deploying a project using "nx":
 pdk nx run examples/sockets/tasks:deploy --require-approval never
 ```
 
-Deployment requires the `--require-approval never` flag since the actual `cdk deploy` is executed in a sub-process with an interactive shell.
+Deployment requires the `--require-approval never` flag since the actual `cdk deploy` is executed in a sub-process without an interactive shell.
 
 Destroying a deployed stack using "nx":
 
 ```bash
 pdk nx run examples/sockets/tasks::destroy -f 
 ```
+
+The `-f` force flag is required, again because nx executes this in a sub-process without an interactive shell.
