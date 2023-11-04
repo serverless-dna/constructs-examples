@@ -17,7 +17,7 @@ eslintJson?.addOverride('rules', {
 });
 
 const sockApiExample = new InfrastructureTsProject({
-  deps: ['@serverless-dna/constructs'],
+  devDeps: ['@serverless-dna/constructs@^0'],
   gitignore: ['cdk.context.json', '__snapshots__;'],
   name: 'examples/sockets/api',
   outdir: 'examples/sockets/api',
@@ -33,7 +33,7 @@ sockApiExampleEslint?.addOverride('rules', {
 });
 
 const sockTaskExample = new InfrastructureTsProject({
-  deps: ['@serverless-dna/constructs'],
+  devDeps: ['@serverless-dna/constructs@^0'],
   gitignore: ['cdk.context.json', '__snapshots__;'],
   name: 'examples/sockets/tasks',
   outdir: 'examples/sockets/tasks',

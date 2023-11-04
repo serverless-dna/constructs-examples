@@ -1,6 +1,11 @@
 {
   "dependencies": [
     {
+      "name": "@serverless-dna/constructs",
+      "version": "^0",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "type": "build"
     },
@@ -89,10 +94,6 @@
     },
     {
       "name": "@aws/pdk",
-      "type": "runtime"
-    },
-    {
-      "name": "@serverless-dna/constructs",
       "type": "runtime"
     },
     {
