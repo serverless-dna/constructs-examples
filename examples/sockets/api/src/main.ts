@@ -1,7 +1,7 @@
-import { CdkGraph, FilterPreset, Filters } from "@aws/pdk/cdk-graph";
-import { CdkGraphDiagramPlugin } from "@aws/pdk/cdk-graph-plugin-diagram";
-import { AwsPrototypingChecks, PDKNag } from "@aws/pdk/pdk-nag";
-import { ApplicationStack } from "./stacks/application-stack";
+import { CdkGraph, FilterPreset, Filters } from '@aws/pdk/cdk-graph';
+import { CdkGraphDiagramPlugin } from '@aws/pdk/cdk-graph-plugin-diagram';
+import { AwsPrototypingChecks, PDKNag } from '@aws/pdk/pdk-nag';
+import { ApplicationStack } from './stacks/application-stack';
 
 // for development, use account/region from cdk cli
 const devEnv = {
@@ -15,7 +15,7 @@ const devEnv = {
     nagPacks: [new AwsPrototypingChecks()],
   });
 
-  new ApplicationStack(app, "socket-api-example", { env: devEnv });
+  new ApplicationStack(app, 'socket-api-example', { env: devEnv });
 
   const graph = new CdkGraph(app, {
     plugins: [

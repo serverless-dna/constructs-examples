@@ -1,5 +1,5 @@
 {
-  "name": "SocketTasksExample",
+  "name": "examples/sockets/tasks",
   "scripts": {
     "build": "npx projen build",
     "bundle": "npx projen bundle",

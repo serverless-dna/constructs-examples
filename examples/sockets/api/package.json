@@ -1,5 +1,5 @@
 {
-  "name": "SocketApiExample",
+  "name": "examples/sockets/api",
   "scripts": {
     "build": "npx projen build",
     "bundle": "npx projen bundle",

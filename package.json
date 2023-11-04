@@ -1,5 +1,5 @@
 {
-  "name": "constructs",
+  "name": "constructs-examples",
   "scripts": {
     "build": "pnpm exec projen build",
     "clobber": "pnpm exec projen clobber",
@@ -20,20 +20,21 @@
     "synth-workspace": "pnpm exec projen"
   },
   "devDependencies": {
-    "@aws/pdk": "^0",
+    "@aws/pdk": "^0.22.20",
     "@types/node": "^16",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
+    "constructs": "^10.0.0",
     "eslint": "^8",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-node": "^0.3.9",
     "eslint-import-resolver-typescript": "^3.6.1",
-    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-prettier": "^5.0.1",
-    "npm-check-updates": "^16.14.5",
+    "npm-check-updates": "^16.14.6",
     "nx": "16.0.0",
     "prettier": "^3.0.3",
-    "projen": "^0.74.8",
+    "projen": "^0.76",
     "syncpack": "^11.2.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
@@ -42,8 +43,8 @@
     "nx": "^16"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.100.0",
-    "cdk-nag": "^2.27.158",
+    "aws-cdk-lib": "^2.103.1",
+    "cdk-nag": "^2.27.175",
     "constructs": "^10.3.0"
   },
   "pnpm": {
@@ -64,7 +65,6 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/constructs",
       "examples/sockets/api",
       "examples/sockets/tasks"
     ]

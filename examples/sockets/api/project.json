@@ -1,5 +1,5 @@
 {
-  "name": "SocketApiExample",
+  "name": "examples/sockets/api",
   "root": "examples/sockets/api",
   "targets": {
     "default": {
