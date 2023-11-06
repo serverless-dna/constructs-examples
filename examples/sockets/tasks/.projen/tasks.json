@@ -43,6 +43,16 @@
         }
       ]
     },
+    "deploy:dev": {
+      "name": "deploy:dev",
+      "description": "Performs a hotswap CDK deployment, useful for faster development cycles",
+      "steps": [
+        {
+          "exec": "cdk deploy --hotswap-fallback --require-approval never",
+          "receiveArgs": true
+        }
+      ]
+    },
     "destroy": {
       "name": "destroy",
       "description": "Destroys your cdk app in the AWS cloud",
