@@ -17,7 +17,7 @@ eslintJson?.addOverride('rules', {
 });
 
 const sockApiExample = new InfrastructureTsProject({
-  devDeps: ['@serverless-dna/constructs@^0'],
+  devDeps: ['@serverless-dna/constructs@^0.0.6'],
   gitignore: ['cdk.context.json', '__snapshots__;'],
   name: 'examples/sockets/api',
   outdir: 'examples/sockets/api',
@@ -33,7 +33,7 @@ sockApiExampleEslint?.addOverride('rules', {
 });
 
 const sockTaskExample = new InfrastructureTsProject({
-  devDeps: ['@serverless-dna/constructs@^0'],
+  devDeps: ['@serverless-dna/constructs@^0.0.6'],
   gitignore: ['cdk.context.json', '__snapshots__;'],
   name: 'examples/sockets/tasks',
   outdir: 'examples/sockets/tasks',
@@ -45,6 +45,21 @@ const sockTaskExample = new InfrastructureTsProject({
 const sockTaskExampleEslint =
   sockTaskExample.tryFindObjectFile('.eslintrc.json');
 sockTaskExampleEslint?.addOverride('rules', {
+  'prettier/prettier': ['error', { singleQuote: true }],
+});
+
+const privVpcExample = new InfrastructureTsProject({
+  deps: ['@serverless-dna/constructs@^0.0.6', '@aws-sdk/client-s3'],
+  gitignore: ['cdk.context.json', '__snapshots__;'],
+  name: 'examples/vpc/private',
+  outdir: 'examples/vpc/private',
+  parent: project,
+  packageManager: packageManager,
+});
+
+// override default Projen construct config for Prettier to make ALL projects the same
+const privVpcExampleEslint = privVpcExample.tryFindObjectFile('.eslintrc.json');
+privVpcExampleEslint?.addOverride('rules', {
   'prettier/prettier': ['error', { singleQuote: true }],
 });
 

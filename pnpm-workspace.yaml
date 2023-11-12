@@ -3,3 +3,4 @@
 packages:
   - examples/sockets/api
   - examples/sockets/tasks
+  - examples/vpc/private

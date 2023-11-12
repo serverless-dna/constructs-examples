@@ -1,11 +1,6 @@
 {
   "dependencies": [
     {
-      "name": "@serverless-dna/constructs",
-      "version": "^0.0.6",
-      "type": "build"
-    },
-    {
       "name": "@types/jest",
       "type": "build"
     },
@@ -93,7 +88,16 @@
       "type": "build"
     },
     {
+      "name": "@aws-sdk/client-s3",
+      "type": "runtime"
+    },
+    {
       "name": "@aws/pdk",
+      "type": "runtime"
+    },
+    {
+      "name": "@serverless-dna/constructs",
+      "version": "^0.0.6",
       "type": "runtime"
     },
     {
