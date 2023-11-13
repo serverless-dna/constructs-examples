@@ -1,0 +1,416 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot 1`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "handlerE1533BD5": {
+      "DependsOn": [
+        "handlerServiceRoleDefaultPolicyB5E76755",
+        "handlerServiceRole187D5A5A",
+        "privateVpcprivateSubnet1RouteTableAssociation42999C5B",
+        "privateVpcprivateSubnet2RouteTableAssociationFF21EFE4",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "c8bacf6e2aad326a5c37fb44cae2d9724046e2b7badae09583825c26a01492f4.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "BUCKET": {
+              "Ref": "testbucketE6E05ABE",
+            },
+          },
+        },
+        "Handler": "index.taskHandlerFunc",
+        "Role": {
+          "Fn::GetAtt": [
+            "handlerServiceRole187D5A5A",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 3,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "handlerSecurityGroup39AF83FC",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "privateVpcprivateSubnet1Subnet4CFD0A42",
+            },
+            {
+              "Ref": "privateVpcprivateSubnet2Subnet4ECFD7BA",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "handlerSecurityGroup39AF83FC": {
+      "DependsOn": [
+        "privateVpcprivateSubnet1RouteTableAssociation42999C5B",
+        "privateVpcprivateSubnet2RouteTableAssociationFF21EFE4",
+      ],
+      "Properties": {
+        "GroupDescription": "Automatic security group for Lambda Function testhandler9D03E96D",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "privateVpc3CDF2D24",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "handlerServiceRole187D5A5A": {
+      "DependsOn": [
+        "privateVpcprivateSubnet1RouteTableAssociation42999C5B",
+        "privateVpcprivateSubnet2RouteTableAssociationFF21EFE4",
+      ],
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "handlerServiceRoleDefaultPolicyB5E76755": {
+      "DependsOn": [
+        "privateVpcprivateSubnet1RouteTableAssociation42999C5B",
+        "privateVpcprivateSubnet2RouteTableAssociationFF21EFE4",
+      ],
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject",
+                "s3:PutObjectLegalHold",
+                "s3:PutObjectRetention",
+                "s3:PutObjectTagging",
+                "s3:PutObjectVersionTagging",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "testbucketE6E05ABE",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "testbucketE6E05ABE",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "handlerServiceRoleDefaultPolicyB5E76755",
+        "Roles": [
+          {
+            "Ref": "handlerServiceRole187D5A5A",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "privateVpc3CDF2D24": {
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "test/privateVpc/Vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "privateVpcprivateSubnet1RouteTableAssociation42999C5B": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateVpcprivateSubnet1RouteTableE938B114",
+        },
+        "SubnetId": {
+          "Ref": "privateVpcprivateSubnet1Subnet4CFD0A42",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "privateVpcprivateSubnet1RouteTableE938B114": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "test/privateVpc/Vpc/privateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "privateVpc3CDF2D24",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "privateVpcprivateSubnet1Subnet4CFD0A42": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.0.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/privateVpc/Vpc/privateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "privateVpc3CDF2D24",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "privateVpcprivateSubnet2RouteTable41E01DD7": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "test/privateVpc/Vpc/privateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "privateVpc3CDF2D24",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "privateVpcprivateSubnet2RouteTableAssociationFF21EFE4": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateVpcprivateSubnet2RouteTable41E01DD7",
+        },
+        "SubnetId": {
+          "Ref": "privateVpcprivateSubnet2Subnet4ECFD7BA",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "privateVpcprivateSubnet2Subnet4ECFD7BA": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.1.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/privateVpc/Vpc/privateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "privateVpc3CDF2D24",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "testbucketE6E05ABE": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "testbucketPolicy83E60200": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "testbucketE6E05ABE",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false",
+                },
+              },
+              "Effect": "Deny",
+              "Principal": {
+                "AWS": "*",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "testbucketE6E05ABE",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "testbucketE6E05ABE",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

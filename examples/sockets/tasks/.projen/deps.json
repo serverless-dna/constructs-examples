@@ -2,7 +2,7 @@
   "dependencies": [
     {
       "name": "@serverless-dna/constructs",
-      "version": "^0",
+      "version": "^0.0.6",
       "type": "build"
     },
     {
