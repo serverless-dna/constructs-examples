@@ -21,7 +21,6 @@
     "synth-workspace": "pnpm exec projen"
   },
   "devDependencies": {
-    "@aws/pdk": "^0.22.31",
     "@types/node": "^16",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",

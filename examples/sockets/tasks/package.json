@@ -45,7 +45,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@aws/pdk": "^0.22.12",
+    "@aws-cdk/aws-cognito-identitypool-alpha": "latest",
     "aws-cdk-lib": "^2.1.0",
     "constructs": "^10.0.5"
   },
