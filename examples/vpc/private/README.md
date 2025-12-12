@@ -1,7 +1,51 @@
 # Private VPC Construct
 
-This example project is an example use case for the `PrivateVPC` [Serverless DNA Construct](https://github.com/serverless-dna/constructs/).
+This example project demonstrates the use of the `PrivateVPC` construct from the [Serverless DNA Constructs library](https://github.com/serverless-dna/constructs/).
 
 ## Getting started
 
-This project is built using the `aws-pdk` library which is based upon [projen](https://projen.io).  Refer to [Developer Guide](https://aws.github.io/aws-pdk/developer_guides/infrastructure/index.html).
+This project demonstrates how to use the PrivateVPC construct to create isolated VPC environments with AWS CDK.
+
+For more information about AWS CDK, refer to the [AWS CDK Developer Guide](https://docs.aws.amazon.com/cdk/v2/guide/home.html).
+
+### Building and Deploying
+
+To build this project:
+
+```bash
+npm run build
+```
+
+To deploy this project:
+
+```bash
+npm run deploy
+```
+
+To destroy the deployed stack:
+
+```bash
+npm run destroy
+```
+
+### Running from the Repository Root
+
+If you prefer to use the monorepo tooling from the root directory, you can use nx:
+
+To build this specific project:
+
+```bash
+npx nx run examples/vpc/private:build
+```
+
+To deploy this project:
+
+```bash
+npx nx run examples/vpc/private:deploy
+```
+
+To destroy the deployed stack:
+
+```bash
+npx nx run examples/vpc/private:destroy
+```
