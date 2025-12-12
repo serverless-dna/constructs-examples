@@ -4,38 +4,63 @@ This repository contains example projects showing how you can use the various co
 
 ## Getting started
 
-This repo is managed by the AWS Project Development Kit (PDK), for help in getting started take a look at the [Developer Guide](https://aws.github.io/aws-pdk/developer_guides/infrastructure/index.html).
+This repository is organized as a monorepo containing multiple example projects demonstrating the use of Serverless DNA Constructs. Each example project is self-contained and can be built and deployed independently.
+
+For more information about AWS CDK, refer to the [AWS CDK Developer Guide](https://docs.aws.amazon.com/cdk/v2/guide/home.html).
 
 ### Quick Start
 
-This project uses the AWS Project Development kit to manage a complete collection of example projects as a mono-repo.  AWS PDK uses [Projen](https://projen.io) to manage the mono-repo using a custom projen template which wraps up mono-repo management with typescript and [nx](https://nx.dev/).  Follow the getting started guide for the [aws-pdk](https://aws.github.io/aws-pdk/getting_started/index.html).
+This project is managed as a monorepo using [pnpm workspaces](https://pnpm.io/workspaces) and [nx](https://nx.dev/) for build orchestration. The monorepo structure allows for efficient management of multiple related example projects while maintaining clear separation between them.
 
-The example projects are all logically named following the folders the example code is stored in.  For example, the example project for SocketTasks Construct can be found in the **"examples/sockets/tasks"** folder, so its name will be "examples/sockets/tasks".  This naming convention is deliberate since the repo is a mono-repo and the name of the sub-projects enables you to run commands to build, deploy and destroy each of the projects in your own AWS account.
+The example projects are all logically named following the folders the example code is stored in.  For example, the example project for SocketTasks Construct can be found in the **"examples/sockets/tasks"** folder, so its name will be "examples/sockets/tasks".  This naming convention is deliberate so that when working with the repo you can easily identify which project you're targeting.
 
-To build the example projects (all of them):
+#### Building Projects
 
-```bash
-pdk build
-```
-
-To build the **examples/sockets/tasks** project:
+To build all example projects:
 
 ```bash
-pdk nx run examples/sockets/tasks:build
+pnpm build
 ```
 
-Deploying a project using "nx":
+To build a specific project (e.g., **examples/sockets/tasks**):
 
 ```bash
-pdk nx run examples/sockets/tasks:deploy --require-approval never
+npx nx run examples/sockets/tasks:build
 ```
 
-Deployment requires the `--require-approval never` flag since the actual `cdk deploy` is executed in a sub-process without an interactive shell.
-
-Destroying a deployed stack using "nx":
+Or navigate to the project directory and build directly:
 
 ```bash
-pdk nx run examples/sockets/tasks::destroy -f 
+cd examples/sockets/tasks
+npm run build
 ```
 
-The `-f` force flag is required, again because nx executes this in a sub-process without an interactive shell.
+#### Deploying Projects
+
+To deploy a project using nx:
+
+```bash
+npx nx run examples/sockets/tasks:deploy --require-approval never
+```
+
+Or navigate to the project directory and use standard AWS CDK commands:
+
+```bash
+cd examples/sockets/tasks
+npm run deploy
+```
+
+#### Destroying Deployed Stacks
+
+To destroy a deployed stack using nx:
+
+```bash
+npx nx run examples/sockets/tasks:destroy
+```
+
+Or using standard CDK commands from the project directory:
+
+```bash
+cd examples/sockets/tasks
+npm run destroy
+```
